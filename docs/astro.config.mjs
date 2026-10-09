@@ -6,9 +6,9 @@ export default defineConfig({
   base: "/",
   integrations: [
     starlight({
-      title: "DDS RN -> Expo Migration",
+      title: "RN Expo Migration Showcase",
       description:
-        "A step-by-step guide showing the migration path from bare React Native (with a standalone design system) to Expo, Expo Web, and automated screenshot capture.",
+        "A step-by-step showcase of migrating a bare React Native app (with a standalone design system) to Expo, Expo Web, and automated screenshot capture.",
       social: [],
       sidebar: [
         {
