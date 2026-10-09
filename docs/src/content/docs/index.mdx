@@ -1,35 +1,80 @@
 ---
 title: RN Expo Migration Showcase
-description: A step-by-step showcase of migrating a bare React Native app to Expo, Expo Web, and automated screenshot capture.
+description: A Component Showcase app built with a standalone React Native design system, demonstrating the migration path to Expo and Expo Web.
 template: splash
 hero:
-  title: RN Expo Migration Showcase
-  tagline: From bare React Native to Expo Web — with a standalone design system, automated screenshots, and this docs site. Zero screen code changes across all phases.
+  title: Component Showcase
+  tagline: A standalone React Native design system running on iOS, Android, and the web — with zero external component library dependencies.
   actions:
-    - text: Start with Phase 1
-      link: /migration/phase-1-bare-rn/
+    - text: View the app
+      link: /showcase/
       icon: right-arrow
       variant: primary
-    - text: Migration Overview
-      link: /migration/
+    - text: Design system
+      link: /design-system/
       icon: open-book
 ---
 
 import { Card, CardGrid } from '@astrojs/starlight/components';
 
-## What this showcase demonstrates
+## The app
+
+**Component Showcase** (`src/ComponentShowcase.tsx`) is a single screen that puts five standalone design-system components to work together:
+
+| Component | What it shows |
+|-----------|--------------|
+| `TopBar` | Platform-aware navigation bar — centred title on iOS, left-aligned on Android |
+| `Heading` | Level 1 heading using `headline1` type size |
+| `BodyText` | `md` size body copy, `shortForm` line height |
+| `Heading` | Level 2 with `visualSize="headline4"` override |
+| `Button` | Primary variant with live tap counter — proves interactivity |
+
+The screen title is **"Component Showcase"**. The heading reads **"DDS Standalone Components"**. Tapping the button increments a counter — confirming that state, events, and re-rendering all work identically on iOS, Android, and web.
+
+> This file is never modified across any phase of the migration. It is the proof that the component API is fully portable.
+
+---
+
+## Screenshots
+
+_Screenshots of the app running on web will appear here in the next phase._
+
+---
+
+## The design system
+
+Five components built entirely from React Native primitives — no `@ddsrn/*` packages, no `react-native-svg`, no reanimated.
 
 <CardGrid>
-  <Card title="Standalone Design System" icon="puzzle">
-    A self-contained `src/design-system/` with `Heading`, `BodyText`, `Button`, `TopBar` and `ThemeProvider` — zero `@ddsrn/*` dependencies.
+  <Card title="ThemeProvider + useTheme" icon="sun">
+    Tesco light tokens inlined. Same `brand` / `mode` props as dds-react-native.
   </Card>
-  <Card title="5-File Expo Migration" icon="setting">
-    Migrating from bare React Native to Expo SDK 53 by changing exactly 5 config files. `git diff -- src/` outputs zero lines.
+  <Card title="Heading" icon="list-format">
+    Levels 1–6 with independent `visualSize` override. `accessibilityRole="header"` everywhere.
   </Card>
-  <Card title="Expo Web" icon="laptop">
-    The same screen runs in a browser via `react-native-web` with no screen code changes. Confirmed working on web.
+  <Card title="BodyText" icon="document">
+    `xs` `sm` `md` `lg` sizes. `shortForm` and `longForm` line heights.
   </Card>
-  <Card title="Automated Screenshots" icon="camera">
-    Playwright captures mobile and desktop PNGs of the web app for embedding in this docs site.
+  <Card title="Button" icon="approve-check-circle">
+    `primary` `secondary` `tertiary` `link` variants. Inlined `useButton` accessibility logic.
+  </Card>
+  <Card title="TopBar" icon="bars">
+    Title, left and right slots. iOS centres, Android left-aligns.
+  </Card>
+  <Card title="Zero external deps" icon="puzzle">
+    Only `react`, `react-native`, `react-native-safe-area-context` at runtime.
   </Card>
 </CardGrid>
+
+---
+
+## Migration path
+
+The design system and screen code never change. Only build tooling changes between phases.
+
+| Phase | Change | Screen diff |
+|-------|--------|-------------|
+| 1 — Bare React Native | Baseline — identical toolchain to dds-react-native Playground | — |
+| 2 — Expo SDK | 5 config files | 0 lines |
+| 3 — Expo Web | 3 web deps added | 0 lines |
+| 4 — Screenshots + Docs | Playwright script, this Astro site | 0 lines |

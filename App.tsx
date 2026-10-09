@@ -8,13 +8,13 @@
 import React from 'react';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {ThemeProvider} from './src/design-system/theme/ThemeProvider';
-import {HelloWorldScreen} from './src/HelloWorldScreen';
+import {ComponentShowcase} from './src/ComponentShowcase';
 
 function App(): React.JSX.Element {
   return (
     <SafeAreaProvider>
       <ThemeProvider brand="tesco" mode="light">
-        <HelloWorldScreen />
+        <ComponentShowcase />
       </ThemeProvider>
     </SafeAreaProvider>
   );

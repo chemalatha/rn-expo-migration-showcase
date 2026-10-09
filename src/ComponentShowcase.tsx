@@ -1,13 +1,19 @@
 /**
- * HelloWorldScreen
+ * ComponentShowcase
  *
- * Demonstrates the standalone design-system components.
- * All imports now come from ./design-system — zero @ddsrn/* dependencies.
+ * The main screen of rn-expo-migration-showcase. Demonstrates all 5
+ * standalone design-system components running on bare React Native,
+ * Expo, and Expo Web — with zero @ddsrn/* dependencies.
  *
- * API is identical to the DDS version, so migrating back to the real
- * library is a one-line import path change per component.
+ * Components shown:
+ *  - TopBar     (navigation bar, platform-aware title alignment)
+ *  - Heading    (levels 1 + 2 with visualSize override)
+ *  - BodyText   (md + sm sizes)
+ *  - Button     (primary, interactive tap counter)
  *
- * PHASE 1 — Bare React Native (standalone design system)
+ * PHASE 1+ — This file is never modified across any phase of the migration.
+ * It is the proof that the standalone design system API is portable to
+ * Expo and Expo Web without any screen-level changes.
  */
 
 import React, {useState} from 'react';
@@ -39,7 +45,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export function HelloWorldScreen(): React.JSX.Element {
+export function ComponentShowcase(): React.JSX.Element {
   const [tapCount, setTapCount] = useState(0);
 
   const tapLabel =
@@ -49,19 +55,19 @@ export function HelloWorldScreen(): React.JSX.Element {
 
   return (
     <SafeAreaView style={styles.container}>
-      <TopBar title="DDS React Native" />
+      <TopBar title="Component Showcase" />
       <ScrollView contentContainerStyle={styles.content}>
-        <Heading headingLevel="1">Hello, World!</Heading>
+        <Heading headingLevel="1">DDS Standalone Components</Heading>
 
         <BodyText size="md">
-          This screen uses a standalone design-system (no @ddsrn/* packages).
-          Components are implemented locally with the same API as DDS React
-          Native — migration back is a path-only import change.
+          These components are built from React Native primitives with zero
+          external design-system dependencies. The same code runs on iOS,
+          Android, and in the browser via Expo Web.
         </BodyText>
 
         <View style={styles.interactionSection}>
           <Heading headingLevel="2" visualSize="headline4">
-            Interactivity
+            Interactive Button
           </Heading>
 
           <BodyText size="md">{tapLabel}</BodyText>

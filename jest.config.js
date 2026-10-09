@@ -9,11 +9,9 @@ module.exports = {
   testPathIgnorePatterns: ['/node_modules/', '/packages/'],
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
   moduleNameMapper: {
-    // Force all code to use our local react-native copy
     '^react-native$': `${localNodeModules}/react-native`,
     '^react$': `${localNodeModules}/react`,
     '^react-test-renderer(.*)$': `${localNodeModules}/react-test-renderer$1`,
-    // Mock safe-area-context (needs native bridge)
     '^react-native-safe-area-context$': '<rootDir>/__mocks__/react-native-safe-area-context.js',
   },
   transformIgnorePatterns: [

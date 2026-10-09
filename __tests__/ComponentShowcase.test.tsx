@@ -1,23 +1,23 @@
 /**
  * @format
  *
- * Tests for HelloWorldScreen — standalone design system.
+ * Tests for ComponentShowcase — standalone design system.
  */
 
 import React from 'react';
 import ReactTestRenderer from 'react-test-renderer';
 import {ThemeProvider} from '../src/design-system/theme/ThemeProvider';
-import {HelloWorldScreen} from '../src/HelloWorldScreen';
+import {ComponentShowcase} from '../src/ComponentShowcase';
 
 function renderScreen() {
   return ReactTestRenderer.create(
     <ThemeProvider brand="tesco" mode="light">
-      <HelloWorldScreen />
+      <ComponentShowcase />
     </ThemeProvider>,
   );
 }
 
-describe('HelloWorldScreen', () => {
+describe('ComponentShowcase', () => {
   it('renders without throwing', async () => {
     await expect(
       ReactTestRenderer.act(() => {
@@ -26,12 +26,12 @@ describe('HelloWorldScreen', () => {
     ).resolves.not.toThrow();
   });
 
-  it('renders the heading text', async () => {
+  it('renders the main heading', async () => {
     let renderer!: ReactTestRenderer.ReactTestRenderer;
     await ReactTestRenderer.act(() => {
       renderer = renderScreen();
     });
-    expect(JSON.stringify(renderer.toJSON())).toContain('Hello, World!');
+    expect(JSON.stringify(renderer.toJSON())).toContain('DDS Standalone Components');
   });
 
   it('renders the initial tap prompt', async () => {
@@ -58,7 +58,6 @@ describe('HelloWorldScreen', () => {
       renderer = renderScreen();
     });
 
-    // Find the button (Pressable) and press it
     const button = renderer.root.findAll(
       node => node.props.accessibilityRole === 'button',
     )[0];

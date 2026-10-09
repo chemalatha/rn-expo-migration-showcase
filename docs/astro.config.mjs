@@ -16,6 +16,10 @@ export default defineConfig({
           slug: "",
         },
         {
+          label: "Component Showcase",
+          slug: "showcase",
+        },
+        {
           label: "Overview",
           slug: "migration",
         },
@@ -38,6 +42,18 @@ export default defineConfig({
             { label: "BodyText", slug: "design-system/body-text" },
             { label: "Button", slug: "design-system/button" },
             { label: "TopBar", slug: "design-system/top-bar" },
+          ],
+        },
+        {
+          label: "Components",
+          items: [
+            { label: "Button", slug: "components/button" },
+          ],
+        },
+        {
+          label: "Reference",
+          items: [
+            { label: "Button", slug: "reference/button" },
           ],
         },
       ],
