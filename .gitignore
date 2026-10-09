@@ -31,3 +31,4 @@ coverage/
 # Misc
 .DS_Store
 *.jsbundle
+screenshots/*.png
