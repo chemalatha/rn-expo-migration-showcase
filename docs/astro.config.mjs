@@ -2,8 +2,8 @@ import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
 
 export default defineConfig({
-  site: "http://localhost:4321",
-  base: "/",
+  site: process.env.SITE ?? "http://localhost:4321",
+  base: process.env.SITE ? "/rn-expo-migration-showcase" : "/",
   integrations: [
     starlight({
       title: "RN Expo Migration Showcase",

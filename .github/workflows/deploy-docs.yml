@@ -1,0 +1,74 @@
+name: Deploy Docs to GitHub Pages
+
+on:
+  # Run after the screenshot pipeline completes successfully
+  workflow_run:
+    workflows: ["CI Screenshot Pipeline"]
+    types: [completed]
+    branches: [phase-6/ci-screenshots]
+
+  # Also allow manual trigger
+  workflow_dispatch:
+
+# Required permissions for GitHub Pages deployment
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Only one deployment at a time
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Deploy to GitHub Pages
+    runs-on: ubuntu-latest
+    # Only deploy if the triggering workflow succeeded (or manual trigger)
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install app dependencies
+        run: npm ci --legacy-peer-deps
+
+      - name: Install Playwright Chromium + system deps
+        run: npx playwright install chromium --with-deps
+
+      - name: Capture screenshots (expo export + Playwright)
+        run: npm run screenshot:ci
+
+      - name: Install docs dependencies
+        run: npm ci
+        working-directory: docs
+
+      - name: Build Astro docs
+        run: npm run docs:build
+        env:
+          # Tell Astro the site URL so links and sitemap are correct
+          SITE: https://chemalatha.github.io/rn-expo-migration-showcase
+
+      - name: Setup GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload docs to GitHub Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs/dist/
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
