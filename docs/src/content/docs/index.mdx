@@ -1,0 +1,35 @@
+---
+title: RN Expo Migration Showcase
+description: A step-by-step showcase of migrating a bare React Native app to Expo, Expo Web, and automated screenshot capture.
+template: splash
+hero:
+  title: RN Expo Migration Showcase
+  tagline: From bare React Native to Expo Web — with a standalone design system, automated screenshots, and this docs site. Zero screen code changes across all phases.
+  actions:
+    - text: Start with Phase 1
+      link: /migration/phase-1-bare-rn/
+      icon: right-arrow
+      variant: primary
+    - text: Migration Overview
+      link: /migration/
+      icon: open-book
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+## What this showcase demonstrates
+
+<CardGrid>
+  <Card title="Standalone Design System" icon="puzzle">
+    A self-contained `src/design-system/` with `Heading`, `BodyText`, `Button`, `TopBar` and `ThemeProvider` — zero `@ddsrn/*` dependencies.
+  </Card>
+  <Card title="5-File Expo Migration" icon="setting">
+    Migrating from bare React Native to Expo SDK 53 by changing exactly 5 config files. `git diff -- src/` outputs zero lines.
+  </Card>
+  <Card title="Expo Web" icon="laptop">
+    The same screen runs in a browser via `react-native-web` with no screen code changes. Confirmed working on web.
+  </Card>
+  <Card title="Automated Screenshots" icon="camera">
+    Playwright captures mobile and desktop PNGs of the web app for embedding in this docs site.
+  </Card>
+</CardGrid>

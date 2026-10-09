@@ -12,6 +12,10 @@ export default defineConfig({
       social: [],
       sidebar: [
         {
+          label: "Home",
+          slug: "",
+        },
+        {
           label: "Overview",
           slug: "migration",
         },
