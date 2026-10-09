@@ -16,6 +16,7 @@ const config = {
     port: 4477,
   },
   resolver: {
+    nodeModulesPaths: [require('path').resolve(__dirname, 'node_modules')],
     disableHierarchicalLookup: true,
     blockList: [
       /\.git\/.*/,
