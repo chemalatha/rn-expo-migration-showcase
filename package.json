@@ -9,7 +9,8 @@
     "web": "expo start --web --port 4477",
     "docs": "cd docs && npm run dev",
     "docs:build": "cd docs && npm run build",
-    "screenshot": "tsx scripts/capture-screenshots.ts",
+    "screenshot": "playwright test --config=playwright.config.ts",
+    "screenshot:ci": "CI=true playwright test --config=playwright.config.ts",
     "test": "jest",
     "typecheck": "tsc --noEmit"
   },
@@ -45,6 +46,7 @@
     "metro-config": "^0.82.0",
     "metro-core": "^0.82.0",
     "react-test-renderer": "19.0.0",
+    "serve": "^14.2.6",
     "tsx": "^4.23.15",
     "typescript": "~5.3.3"
   },

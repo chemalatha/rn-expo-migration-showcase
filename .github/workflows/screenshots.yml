@@ -1,0 +1,84 @@
+name: CI Screenshot Pipeline
+
+on:
+  push:
+    branches:
+      - 'phase-*/**'
+      - main
+  pull_request:
+  workflow_dispatch: # allows manual trigger from GitHub UI
+
+jobs:
+  screenshots:
+    name: Capture & publish screenshots
+    runs-on: ubuntu-latest
+
+    steps:
+      # ── Checkout ───────────────────────────────────────────────────────────
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # ── Node.js ────────────────────────────────────────────────────────────
+      - name: Set up Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      # ── Dependencies ───────────────────────────────────────────────────────
+      - name: Install app dependencies
+        run: npm ci --legacy-peer-deps
+
+      - name: Install docs dependencies
+        run: npm ci
+        working-directory: docs
+
+      # ── Playwright ─────────────────────────────────────────────────────────
+      - name: Install Playwright Chromium + system deps
+        run: npx playwright install chromium --with-deps
+
+      # ── Screenshots ────────────────────────────────────────────────────────
+      # playwright.config.ts webServer will:
+      #   1. Run: expo export --platform web --output-dir web-dist
+      #   2. Serve web-dist/ on :4477 via `serve`
+      #   3. Wait for :4477 to be ready
+      #   4. Run the two screenshot tests
+      #   5. Shut the server down
+      - name: Capture screenshots (expo export + Playwright)
+        run: npm run screenshot:ci
+
+      # ── Astro docs build ───────────────────────────────────────────────────
+      # Screenshots are auto-copied to docs/public/screenshots/ by the script.
+      # Now build the docs site with the fresh screenshots baked in.
+      - name: Build Astro docs
+        run: npm run docs:build
+
+      # ── Artifacts ──────────────────────────────────────────────────────────
+      - name: Upload screenshots
+        if: always() # upload even if a step fails, for debugging
+        uses: actions/upload-artifact@v4
+        with:
+          name: screenshots-${{ github.sha }}
+          path: screenshots/
+          retention-days: 30
+
+      - name: Upload Astro docs build
+        uses: actions/upload-artifact@v4
+        with:
+          name: docs-dist-${{ github.sha }}
+          path: docs/dist/
+          retention-days: 30
+
+      # ── Summary ────────────────────────────────────────────────────────────
+      - name: Write job summary
+        if: always()
+        run: |
+          echo "## CI Screenshot Pipeline" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Output | Status |" >> $GITHUB_STEP_SUMMARY
+          echo "|--------|--------|" >> $GITHUB_STEP_SUMMARY
+          echo "| `screenshots/showcase-mobile.png` | $([ -f screenshots/showcase-mobile.png ] && echo 'captured' || echo 'missing') |" >> $GITHUB_STEP_SUMMARY
+          echo "| `screenshots/showcase-desktop.png` | $([ -f screenshots/showcase-desktop.png ] && echo 'captured' || echo 'missing') |" >> $GITHUB_STEP_SUMMARY
+          echo "| `docs/dist/` | $([ -d docs/dist ] && echo 'built' || echo 'missing') |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Commit: `${{ github.sha }}`" >> $GITHUB_STEP_SUMMARY
