@@ -7,6 +7,8 @@
     "ios": "expo run:ios",
     "android": "expo run:android",
     "web": "expo start --web --port 4477",
+    "docs": "cd docs && npm run dev",
+    "docs:build": "cd docs && npm run build",
     "screenshot": "tsx scripts/capture-screenshots.ts",
     "test": "jest",
     "typecheck": "tsc --noEmit"
