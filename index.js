@@ -1,13 +1,15 @@
 /**
- * @format
+ * Entry point — Phase 2 (Expo)
  *
- * PHASE 1 — Bare React Native entry point
- * Uses AppRegistry directly (standard bare RN pattern).
- * This file changes in Phase 2 to use Expo's registerRootComponent.
+ * CHANGED from Phase 1:
+ *   AppRegistry.registerComponent(appName, () => App)
+ *   →  registerRootComponent(App)
+ *
+ * registerRootComponent calls AppRegistry internally and also handles
+ * Expo-specific initialisation. No other changes to the app.
  */
 
-import {AppRegistry} from 'react-native';
+import {registerRootComponent} from 'expo';
 import App from './App';
-import {name as appName} from './app.json';
 
-AppRegistry.registerComponent(appName, () => App);
+registerRootComponent(App);

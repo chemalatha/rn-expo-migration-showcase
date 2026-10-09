@@ -1,34 +1,25 @@
 /**
- * Metro configuration — Phase 1 (Bare React Native)
- * This file changes in Phase 2 to extend @expo/metro-config.
+ * Metro configuration — Phase 2 (Expo)
  *
- * PHASE 1 — Fully self-contained, no monorepo references.
+ * CHANGED from Phase 1:
+ *   getDefaultConfig from '@react-native/metro-config'
+ *   →  getDefaultConfig from 'expo/metro-config'
+ *
+ * Port 4477, disableHierarchicalLookup and nodeModulesPaths are unchanged.
+ * Screen and design-system source are untouched.
  */
 
-const path = require('path');
-const {getDefaultConfig, mergeConfig} = require('@react-native/metro-config');
+const {getDefaultConfig} = require('expo/metro-config');
 
 const projectRoot = __dirname;
 
-/** @type {import('@react-native/metro-config').MetroConfig} */
-const config = {
-  server: {
-    port: 4477,
-  },
-  resolver: {
-    nodeModulesPaths: [require('path').resolve(__dirname, 'node_modules')],
-    disableHierarchicalLookup: true,
-    blockList: [
-      /\.git\/.*/,
-      /\.idea\/.*/,
-      /\.vscode\/.*/,
-      /android\/build\/.*/,
-      /android\/app\/build\/.*/,
-      /android\/\.gradle\/.*/,
-      /ios\/build\/.*/,
-      /ios\/Pods\/.*/,
-    ],
-  },
-};
+/** @type {import('expo/metro-config').MetroConfig} */
+const config = getDefaultConfig(projectRoot);
 
-module.exports = mergeConfig(getDefaultConfig(projectRoot), config);
+config.server = {port: 4477};
+config.resolver.nodeModulesPaths = [
+  require('path').resolve(projectRoot, 'node_modules'),
+];
+config.resolver.disableHierarchicalLookup = true;
+
+module.exports = config;

@@ -1,4 +1,19 @@
 {
-  "name": "DDSNativeShell",
-  "displayName": "DDS Hello World"
+  "expo": {
+    "name": "DDSNativeShell",
+    "slug": "dds-native-shell",
+    "version": "0.2.0",
+    "orientation": "portrait",
+    "platforms": ["ios", "android", "web"],
+    "ios": {
+      "bundleIdentifier": "org.reactjs.native.example.DDSNativeShell",
+      "supportsTablet": false
+    },
+    "android": {
+      "package": "org.reactjs.native.example.DDSNativeShell"
+    },
+    "web": {
+      "bundler": "metro"
+    }
+  }
 }
