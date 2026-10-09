@@ -64,7 +64,13 @@ No SVG, no reanimated, no gesture-handler — the standalone design system has z
 
 ## Screenshot preview
 
-_(Screenshot will be embedded here in Phase 5)_
+### Mobile viewport (390 x 844 @3x)
+
+![Component Showcase running in a browser at mobile viewport — identical output to the iOS app](/screenshots/showcase-mobile.png)
+
+### Desktop viewport (1280 x 800 @2x)
+
+![Component Showcase running in a browser at desktop viewport](/screenshots/showcase-desktop.png)
 
 ## Branch
 

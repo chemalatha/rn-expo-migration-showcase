@@ -33,7 +33,15 @@ description: The main screen of rn-expo-migration-showcase. Demonstrates TopBar,
 
 ## Screenshots
 
-_Screenshots captured by Playwright will be embedded here in Phase 5._
+Captured by Playwright from the live Expo Web dev server (`npm run screenshot`).
+
+### Mobile — 390 x 844 @3x (iPhone 14 viewport)
+
+![Component Showcase on mobile web — TopBar, Heading DDS Standalone Components, BodyText, interactive Button, and migration phases list](/screenshots/showcase-mobile.png)
+
+### Desktop — 1280 x 800 @2x
+
+![Component Showcase on desktop web — full page layout at 1280px width](/screenshots/showcase-desktop.png)
 
 ## Source
 

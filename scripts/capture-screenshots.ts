@@ -65,6 +65,13 @@ async function captureScreenshots(): Promise<void> {
     console.log('[desktop] Screenshot saved -> ' + desktopPath);
     await desktopCtx.close();
 
+    // Also copy into docs assets so the Astro site is always up to date
+    const docsPublicDir = path.resolve(__dirname, '../docs/public/screenshots');
+    fs.mkdirSync(docsPublicDir, {recursive: true});
+    fs.copyFileSync(mobilePath, path.join(docsPublicDir, 'showcase-mobile.png'));
+    fs.copyFileSync(desktopPath, path.join(docsPublicDir, 'showcase-desktop.png'));
+    console.log('[docs] Screenshots copied to docs/public/screenshots/');
+
     console.log('');
     console.log('All screenshots captured successfully.');
     console.log('Output: ' + OUTPUT_DIR);
